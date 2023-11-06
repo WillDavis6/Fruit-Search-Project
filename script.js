@@ -12,19 +12,22 @@ const fruit = ['Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Blackb
 	'Orange', 'Clementine', 'Mandarine', 'Tangerine', 'Papaya', 'Passionfruit', 'Peach',
 	'Pear', 'Persimmon', 'Plantain', 'Plum', 'Pineapple', 'Pomegranate', 'Pomelo',
 	'Quince', 'Raspberry', 'Salmonberry', 'Rambutan', 'Redcurrant', 'Salak', 'Satsuma',
-	'Soursop', 'Star fruit', 'Strawberry', 'Tamarillo', 'Tamarind', 'Yuzu'];
+	'Soursop', 'Star fruit', 'Strawberry', 'Tamarillo', 'Tamarind', 'Yuzu', 'chicken'];
 // const fruitMap = new Map(fruit);
 
 
 function search(str) {
 	let results = [];
-	if (str.length) {
+	if (str.length !== 0) {
 		results = fruit.filter((keyword) => {
 			return keyword.toLowerCase().includes(str.toLowerCase())
 		});
 		showSuggestions(results)
-		console.log(`${results}, values ${results.length}`);
-	}
+		console.log(`${results}`);
+    }
+    else {
+		suggestions.innerHTML = "<ul>" + "</ul>";
+    }
 
 	
 }
@@ -44,11 +47,13 @@ function showSuggestions(results) {
 	const searchResults = results.map((v) => {
 		return "<li>" + v + "<li>";
 	});
-	suggestions.innerHTML = "<ul>" + searchResults + "</ul>";
+	suggestions.innerHTML = "<ul>" + searchResults.join('') + "</ul>";
 }
 
 function useSuggestion(e) {
-	// TODO
+    e.preventDefault();
+	input.value = e.target.innerText;
+	suggestions.innerHTML = "<ul>" + "</ul>";
 }
 
 input.addEventListener('keyup', searchHandler);
